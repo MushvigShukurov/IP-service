@@ -16,8 +16,8 @@ class GetIpAPIView(APIView):
 
         ip_address = ip      
         serialize = IpSerializer(data=ip_address)
+        IPs.objects.create(ip=ip_address)
         if serialize.is_valid():
-            IPs.objects.create(ip=ip_address)
             return JsonResponse(data=serialize.validated_data, status=status.HTTP_200_OK)
         return JsonResponse(data={
             'ip':ip_address
